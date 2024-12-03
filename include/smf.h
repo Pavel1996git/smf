@@ -18,7 +18,7 @@
  * @ingroup os_services
  * @{
  */
-
+#ifdef CONFIG_SMF_ANCESTOR_SUPPORT
 /**
  * @brief Macro to create a hierarchical state with initial transitions.
  *
@@ -30,13 +30,28 @@
  */
 #define SMF_CREATE_STATE(_entry, _run, _exit, _parent, _initial)           \
 {                                                                          \
-	.entry   = _entry,                                                 \
-	.run     = _run,                                                   \
-	.exit    = _exit,                                                  \
-	IF_ENABLED(CONFIG_SMF_ANCESTOR_SUPPORT, (.parent = _parent,))      \
-	IF_ENABLED(CONFIG_SMF_INITIAL_TRANSITION, (.initial = _initial,))  \
+	.entry   = _entry,       \
+	.run     = _run,       \
+	.exit    = _exit,       \
+	.parent = _parent,      \
+	.initial = _initial  \
 }
 
+#else
+
+/**
+ * @brief Macro to create a flat state.
+ *
+ * @param _entry  State entry function
+ * @param _run  State run function
+ * @param _exit  State exit function
+ */
+#define SMF_CREATE_STATE(_entry, _run, _exit)                                  \
+    {                                                                          \
+        .entry = _entry, .run = _run, .exit = _exit                            \
+    }
+
+#endif /* CONFIG_SMF_ANCESTOR_SUPPORT */
 /**
  * @brief Macro to cast user defined object to state machine
  *        context.
