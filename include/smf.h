@@ -94,6 +94,8 @@ struct smf_state {
 	 *      parent,	that parent's exit and entry functions do not execute.
 	 */
 	const struct smf_state *parent;
+	
+	const struct smf_state *initial;
 
 #ifdef CONFIG_SMF_INITIAL_TRANSITION
 	/**
