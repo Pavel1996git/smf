@@ -265,7 +265,7 @@ void smf_set_state(struct smf_ctx *const ctx, const struct smf_state *new_state)
 	struct internal_ctx *const internal = (void *)&ctx->internal;
 
 	if (new_state == NULL) {
-		LOG_ERR("new_state cannot be NULL");
+		//LOG_ERR("new_state cannot be NULL");
 		return;
 	}
 
@@ -275,7 +275,7 @@ void smf_set_state(struct smf_ctx *const ctx, const struct smf_state *new_state)
 	 * intended state to transition into.
 	 */
 	if (internal->is_exit) {
-		LOG_ERR("Calling %s from exit action", __func__);
+		//LOG_ERR("Calling %s from exit action", __func__);
 		return;
 	}
 
